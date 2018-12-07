@@ -15,11 +15,11 @@ Actual time needed to complete: 52min
 
 Estimate of time needed to complete: 30min
 
-Start time: __________
+Start time: 10:50am
 
-Finish time: __________
+Finish time: 11:20am
 
-Actual time needed to complete: __________
+Actual time needed to complete: 30min
 
 ### Feature #: Cache invalidation
 
@@ -37,7 +37,7 @@ Actual time needed to complete: __________
 # zubucity-12-07.herokuapp.com
 
 **Author**: Gwen Zubatch
-**Version**: 4.0.0 
+**Version**: 4.2.0 
 
 ## Overview
 This server application accepts a location (city) query string from a client and returns objects with up-to-date SQL-DB or API-sourced map, weather, restaurants, and movies data for that location.
@@ -88,6 +88,7 @@ Caching: All features use DB='explorer' for remote caching. Cache is checked for
 12-06-2018 10:30am - Application is now connected to SQL DB ('explorer'), which contains tables for locations, weathers, yelps, and movies.
 12-06-2018 10:45pm - Application features all use DB caching.
 12-07-2018 10:45am - Application now offers location-based meetup data with caching.
+12-07-2018 11:20am - Application now offers location-based hiking data with caching.
 
 ## Credits and Collaborations
 Collaborative effort by:
