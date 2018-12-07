@@ -37,7 +37,7 @@ Actual time needed to complete: __________
 # zubucity-12-07.herokuapp.com
 
 **Author**: Gwen Zubatch
-**Version**: 4.0.0 
+**Version**: 4.2.0 
 
 ## Overview
 This server application accepts a location (city) query string from a client and returns objects with up-to-date SQL-DB or API-sourced map, weather, restaurants, and movies data for that location.
