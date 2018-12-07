@@ -2,7 +2,7 @@ DROP TABLE IF EXISTS locations;
 DROP TABLE IF EXISTS weathers;
 DROP TABLE IF EXISTS movies;
 DROP TABLE IF EXISTS yelps;
--- DROP TABLE IF EXISTS meetups;
+DROP TABLE IF EXISTS meetups;
 -- DROP TABLE IF EXISTS trails;
 
 CREATE TABLE locations (
@@ -42,10 +42,14 @@ CREATE TABLE yelps (
   url VARCHAR(255)
 );
 
--- CREATE TABLE meetups (
---   id SERIAL PRIMARY KEY,
-
--- );
+CREATE TABLE meetups (
+  id SERIAL PRIMARY KEY,
+  location_id NUMERIC(20),
+  link VARCHAR(255),
+  name VARCHAR(255),
+  creation_date VARCHAR(20),
+  host VARCHAR(255)
+);
 
 -- CREATE TABLE trails (
 --   id SERIAL PRIMARY KEY,

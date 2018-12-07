@@ -1,11 +1,11 @@
-# lab-08-back-end
-Lab 08: Persistence with a SQL database
+# lab-09-back-end
+Lab 09: Cache Invalidation
 
 ### Feature #1: Retrieve Meetup information
 
 Estimate of time needed to complete: 30min
 
-Start time: __________
+Start time: 9:52am
 
 Finish time: __________
 
