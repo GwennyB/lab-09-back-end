@@ -7,6 +7,7 @@ DROP TABLE IF EXISTS trails;
 
 CREATE TABLE locations (
   id SERIAL PRIMARY KEY,
+  expiration NUMERIC(20),
   search_query VARCHAR(255),
   formatted_query VARCHAR(255),
   latitude NUMERIC(8,6),
@@ -15,6 +16,7 @@ CREATE TABLE locations (
 
 CREATE TABLE weathers (
   id SERIAL PRIMARY KEY,
+  expiration NUMERIC(20),
   location_id NUMERIC(20),
   forecast VARCHAR(255),
   time VARCHAR(20)
@@ -22,6 +24,7 @@ CREATE TABLE weathers (
 
 CREATE TABLE movies (
   id SERIAL PRIMARY KEY,
+  expiration NUMERIC(20),
   location_id NUMERIC(20),
   title VARCHAR(255),
   overview VARCHAR(255),
@@ -34,6 +37,7 @@ CREATE TABLE movies (
 
 CREATE TABLE yelps (
   id SERIAL PRIMARY KEY,
+  expiration NUMERIC(20),
   location_id NUMERIC(20),
   name VARCHAR(255),
   image_url VARCHAR(255),
@@ -44,6 +48,7 @@ CREATE TABLE yelps (
 
 CREATE TABLE meetups (
   id SERIAL PRIMARY KEY,
+  expiration NUMERIC(20),
   location_id NUMERIC(20),
   link VARCHAR(255),
   name VARCHAR(255),
@@ -53,6 +58,7 @@ CREATE TABLE meetups (
 
 CREATE TABLE trails (
   id SERIAL PRIMARY KEY,
+  expiration NUMERIC(20),
   location_id NUMERIC(20),
   name VARCHAR(255),
   location VARCHAR(255),
