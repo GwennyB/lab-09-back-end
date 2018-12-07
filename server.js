@@ -37,6 +37,7 @@ app.get(('/location'), getLatLng);
 app.get(('/weather'), getWeather);
 app.get(('/yelp'), getYelp);
 app.get(('/movies'), getMovies);
+app.get(('/meetups'), getMeetups);
 
 
 // HELPER, LOCATION: define cache handling
@@ -59,7 +60,6 @@ Location.lookupLocation = (handler) => {
 // query cache
   const SQL = `SELECT * FROM locations WHERE search_query=$1`;
   const values = [handler.query];
-
   return client.query( SQL, values)
     .then( results => {
       // if results, then return results to hit
@@ -142,9 +142,64 @@ Feature.prototype.lookupFeature = function () {
     .catch( error => handleError(error) );
 }
   
+
+// HELPERS, MOVIES
+function getMeetups (request, response) {
+  const handler = new Feature (request);
+  handler.cacheHit = (results) => {
+    console.log('cacheHit');
+    response.send(results.rows);
+  }
+  handler.cacheMiss = () => {
+    console.log('cacheMiss');
+    Meetup.fetch(request.query)
+      .then( results => response.send(results))
+      .catch( error => handleError(error));
+  }
+  handler.tableName = 'meetups',
+  handler.lookupFeature();
+}
+
+function Meetup (data,locID) {
+  this.location_id = locID,
+  this.link = data.link,
+  this.name = data.name,
+  this.creation_date = new Date(data.created).toDateString(),
+  this.host = data.group.name
+}
+
+Meetup.fetch = (query) => {
+  console.log('Meetup query.data',query.data);
+  const url = `https://api.meetup.com/find/upcoming_events?key=${process.env.MEETUP_API_KEY}&lon=${query.data.longitude}&lat=${query.data.latitude}`;
+  return superagent.get(url)
+    .then( apiData => {
+      // if no data: throw error
+      if (!apiData.body.events) {
+        throw 'No Data from API'
+        // if data: save, send to front
+      } else {
+        const meetups = apiData.body.events.map(meetup => {
+          const thisMeetup = new Meetup(meetup,query.data.id);
+          thisMeetup.saveToDB();
+          return thisMeetup;
+        })
+        return meetups;
+      }
+    })
+};
+
+Meetup.prototype.saveToDB = function() {
+  const SQL = `INSERT INTO meetups (location_id,link,name,creation_date,host) VALUES($1,$2,$3,$4,$5)`;
+  let values = [this.location_id,this.link,this.name,this.creation_date,this.host];
+  let savedMeetup = client.query( SQL,values );
+  return savedMeetup;
+};
+
+
+
   
-  // HELPERS, WEATHER
-  // build weather handler
+// HELPERS, WEATHER
+// build weather handler
 function getWeather (request, response) {
   const handler = new Feature (request);
   handler.cacheHit = (results) => {
@@ -251,7 +306,7 @@ Yelp.prototype.saveToDB = function() {
 };
 
 
-// // HELPERS, MOVIES
+// HELPERS, MOVIES
 function getMovies (request, response) {
   const handler = new Feature (request);
   handler.cacheHit = (results) => {
@@ -277,8 +332,8 @@ function Movie (data,locID) {
   this.image_url = `https://image.tmdb.org/t/p/w200_and_h300_bestv2/${data.poster_path}`,
   this.popularity = data.popularity,
   this.released_on = data.release_date
-}
-
+  }
+  
 Movie.fetch = (query) => {
   const url = `https://api.themoviedb.org/3/search/movie?api_key=${process.env.TMDB_API_KEY}&query=${query.data.search_query}`;
   return superagent.get(url)
@@ -306,14 +361,14 @@ Movie.prototype.saveToDB = function() {
   let savedMovie = client.query( SQL,values );
   return savedMovie;
 };
-
+  
+  
 
 // error handler
 function handleError (error, response) {
   // console.error(error);
   if(response) response.status(500).send('Sorry, something went wrong.');
 }
-
 
 // open port
 app.listen(PORT, () => {

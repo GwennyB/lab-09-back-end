@@ -1,5 +1,5 @@
-# lab-08-back-end
-Lab 08: Persistence with a SQL database
+# lab-09-back-end
+Lab 09: Cache Invalidation
 
 ### Feature #1: Retrieve Meetup information
 
