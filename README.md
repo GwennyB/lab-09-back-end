@@ -1,25 +1,46 @@
 # lab-08-back-end
 Lab 08: Persistence with a SQL database
 
-### Feature #1: Caching data
+### Feature #1: Retrieve Meetup information
 
-Estimate of time needed to complete: 4 hours (with debugging)
+Estimate of time needed to complete: 30min
 
-Start time: 9:00am
+Start time: __________
 
-Finish time: 10:45pm
+Finish time: __________
 
-Actual time needed to complete: 8:45
+Actual time needed to complete: __________
+
+### Feature #2: Retrieve trail information
+
+Estimate of time needed to complete: 30min
+
+Start time: __________
+
+Finish time: __________
+
+Actual time needed to complete: __________
+
+### Feature #: Cache invalidation
+
+Estimate of time needed to complete: 2hrs
+
+Start time: __________
+
+Finish time: __________
+
+Actual time needed to complete: __________
 
 
 
-# zubucity-12-06.herokuapp.com
+
+# zubucity-12-07.herokuapp.com
 
 **Author**: Gwen Zubatch
-**Version**: 1.2.0 
+**Version**: 4.0.0 
 
 ## Overview
-This server application accepts a location (city) query string from a client and returns objects with SQL-DB or API-sourced map, weather, restaurants, and movies data for that location.
+This server application accepts a location (city) query string from a client and returns objects with up-to-date SQL-DB or API-sourced map, weather, restaurants, and movies data for that location.
 
 ## Getting Started
 Build an Express server, and load CORS, SUPERAGENT, PG and DOTENV. Use PORT for port (default: 3000). Create '/location' route to accept and process query from client. 
@@ -55,7 +76,7 @@ Movies route (/movies) requests object from same client-side AJAX GET request. R
   image_url:
   popularity:
   released_on:
-Caching: All features use DB='explorer' for remote caching.
+Caching: All features use DB='explorer' for remote caching. Cache is checked for expiration.
 
 ## Change Log
 12-04-2018 10:53am - Application now has a fully-functional express server, with a GET route for the location resource.
@@ -66,6 +87,7 @@ Caching: All features use DB='explorer' for remote caching.
 12-05-2018 5:45pm - Application now returns movies data sourced by TMDb API. Deployed at https://zubucity-12-05.herokuapp.com/.
 12-06-2018 10:30am - Application is now connected to SQL DB ('explorer'), which contains tables for locations, weathers, yelps, and movies.
 12-06-2018 10:45pm - Application features all use DB caching.
+12-07-2018 <!-- ADD UPDATE HERE -->
 
 ## Credits and Collaborations
 Collaborative effort by:
