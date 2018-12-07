@@ -5,11 +5,11 @@ Lab 09: Cache Invalidation
 
 Estimate of time needed to complete: 30min
 
-Start time: 9:52am
+Start time: 9:53am
 
-Finish time: __________
+Finish time: 10:45am
 
-Actual time needed to complete: __________
+Actual time needed to complete: 52min
 
 ### Feature #2: Retrieve trail information
 
@@ -87,7 +87,7 @@ Caching: All features use DB='explorer' for remote caching. Cache is checked for
 12-05-2018 5:45pm - Application now returns movies data sourced by TMDb API. Deployed at https://zubucity-12-05.herokuapp.com/.
 12-06-2018 10:30am - Application is now connected to SQL DB ('explorer'), which contains tables for locations, weathers, yelps, and movies.
 12-06-2018 10:45pm - Application features all use DB caching.
-12-07-2018 <!-- ADD UPDATE HERE -->
+12-07-2018 10:45am - Application now offers location-based meetup data with caching.
 
 ## Credits and Collaborations
 Collaborative effort by:
