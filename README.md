@@ -25,11 +25,11 @@ Actual time needed to complete: 30min
 
 Estimate of time needed to complete: 2hrs
 
-Start time: __________
+Start time: 11:30am
 
-Finish time: __________
+Finish time: 1:15pm
 
-Actual time needed to complete: __________
+Actual time needed to complete: 1:45
 
 
 
@@ -37,7 +37,7 @@ Actual time needed to complete: __________
 # zubucity-12-07.herokuapp.com
 
 **Author**: Gwen Zubatch
-**Version**: 4.2.0 
+**Version**: 4.3.0 
 
 ## Overview
 This server application accepts a location (city) query string from a client and returns objects with up-to-date SQL-DB or API-sourced map, weather, restaurants, and movies data for that location.
@@ -59,16 +59,16 @@ Location route (/location) request object from client-side AJAX GET request. Res
   latitude:
   longitude:
 Returns status 500 and error message if query returns no results.
-Weather route (/weather) requests object from same client-side AJAX GET request. Response is constructed in response object containing:
+WEATHER route (/weather) requests object from same client-side AJAX GET request. Response is constructed in response object containing:
   forecast: 
   time:
-Yelp route (/yelp) requests object from same client-side AJAX GET request. Response is constructed in response object containing:
+YELP route (/yelp) requests object from same client-side AJAX GET request. Response is constructed in response object containing:
   name: 
   image_url:
   price:
   rating:
   url:
-Movies route (/movies) requests object from same client-side AJAX GET request. Response is constructed in response object containing:
+MOVIES route (/movies) requests object from same client-side AJAX GET request. Response is constructed in response object containing:
   title:
   overview:
   average_votes:
@@ -76,7 +76,29 @@ Movies route (/movies) requests object from same client-side AJAX GET request. R
   image_url:
   popularity:
   released_on:
+MEETUPS route (/meetups) requests object from same client-side AJAX GET request. Response is constructed in response object containing:
+  link:
+  name:
+  creation_date:
+  host:
+TRAILS route (/trails) requests object from same client-side AJAX GET request. Response is constructed in response object containing:
+  name:
+  location:
+  length:
+  stars:
+  star_votes:
+  summary:
+  trail_url:
+  conditions:
+  condition_date:
+  condition_time:
 Caching: All features use DB='explorer' for remote caching. Cache is checked for expiration.
+  Weather: expires after 3 hours
+  Yelp: expires after 1 day
+  Movies: expires after 1 week
+  Meetups: expires after 1 day
+  Trails: expires after 6 hours
+
 
 ## Change Log
 12-04-2018 10:53am - Application now has a fully-functional express server, with a GET route for the location resource.
@@ -89,6 +111,7 @@ Caching: All features use DB='explorer' for remote caching. Cache is checked for
 12-06-2018 10:45pm - Application features all use DB caching.
 12-07-2018 10:45am - Application now offers location-based meetup data with caching.
 12-07-2018 11:20am - Application now offers location-based hiking data with caching.
+12-07-2018 1:15pm - Application now expires cache after suitable delay.
 
 ## Credits and Collaborations
 Collaborative effort by:
