@@ -51,6 +51,9 @@ CORS: This application relies on API sources for which CORS provides access mana
   https://darksky.net/dev/docs
   https://www.yelp.com/developers/documentation/v3/business_search
   https://www.themoviedb.org/documentation/api
+  https://www.hikingproject.com/data
+  https://www.meetup.com/meetup_api/
+
 API keys may not be published; load DOTENV and include key vars in .env. 
 Port uses environment variable PORT (default: 3000); set PORT in .env (if using a 3rd-party domain host that sets the port).
 Location route (/location) request object from client-side AJAX GET request. Response is constructed response object containing:
