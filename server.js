@@ -110,7 +110,7 @@ Location.prototype.saveToDB = function() {
 // GENERIC HELPERS
 // helper object constructor
 function Feature (request) {
-  this.location_id = request.query.data.id || 0;
+  this.location_id = request.query.data.search_query || 0;
   this.query = request.query.data;
 }
 
@@ -121,7 +121,6 @@ Feature.prototype.lookupFeature = function () {
   const values = [this.location_id];
   return client.query( SQL, values)
     .then( results => {
-      // console.log('results.rows: ', results.rows[0]);
       // if results, then return results to hit
       if (results.rowCount > 0) {
         console.log(`FEATURE: ${this.tableName}`);
@@ -155,9 +154,11 @@ Feature.prototype.expire = function(id) {
 function getTrails (request, response) {
   const handler = new Feature (request);
   handler.cacheHit = (results) => {
+    console.log('Trails cacheHit');
     response.send(results.rows);
   }
   handler.cacheMiss = () => {
+    console.log('Trails cacheMiss');
     Trail.fetch(request.query)
       .then( results => response.send(results))
       .catch( error => handleError(error));
@@ -190,7 +191,7 @@ Trail.fetch = (query) => {
         // if data: save, send to front
       } else {
         const trails = apiData.body.trails.map(trail => {
-          const thisTrail = new Trail(trail,query.data.id);
+          const thisTrail = new Trail(trail,query.data.search_query);
           thisTrail.saveToDB();
           return thisTrail;
         })
@@ -213,11 +214,11 @@ Trail.prototype.saveToDB = function() {
 function getMeetups (request, response) {
   const handler = new Feature (request);
   handler.cacheHit = (results) => {
-    console.log('cacheHit');
+    console.log('Meetups cacheHit');
     response.send(results.rows);
   }
   handler.cacheMiss = () => {
-    console.log('cacheMiss');
+    console.log('Meetups cacheMiss');
     Meetup.fetch(request.query)
       .then( results => response.send(results))
       .catch( error => handleError(error));
@@ -245,7 +246,7 @@ Meetup.fetch = (query) => {
         // if data: save, send to front
       } else {
         const meetups = apiData.body.events.map(meetup => {
-          const thisMeetup = new Meetup(meetup,query.data.id);
+          const thisMeetup = new Meetup(meetup,query.data.search_query);
           thisMeetup.saveToDB();
           return thisMeetup;
         })
@@ -267,11 +268,11 @@ Meetup.prototype.saveToDB = function() {
 function getWeather (request, response) {
   const handler = new Feature (request);
   handler.cacheHit = (results) => {
-    console.log('cacheHit');
+    console.log('Weather cacheHit');
     response.send(results.rows);
   }
   handler.cacheMiss = () => {
-    console.log('cacheMiss');
+    console.log('Weather cacheMiss');
     Weather.fetch(request.query)
       .then( results => response.send(results))
       .catch( error => handleError(error));
@@ -300,7 +301,7 @@ Weather.fetch = function(query) {
         // if data: save, send to front
       } else {
         const weather = apiData.body.daily.data.map( day => {
-          const thisWeather = new Weather(day, query.data.id);
+          const thisWeather = new Weather(day, query.data.search_query);
           thisWeather.saveToDB();
           return thisWeather;
         })
@@ -324,11 +325,11 @@ Weather.prototype.saveToDB = function() {
 function getYelp (request, response) {
   const handler = new Feature (request);
   handler.cacheHit = (results) => {
-    console.log('cacheHit');
+    console.log('Yelps cacheHit');
     response.send(results.rows);
   }
   handler.cacheMiss = () => {
-    console.log('cacheMiss');
+    console.log('Yelps cacheMiss');
     Yelp.fetch(request.query)
       .then( results => response.send(results))
       .catch( error => handleError(error));
@@ -357,7 +358,7 @@ Yelp.fetch = (query) => {
         // if data: save, send to front
       } else {
         const yelps = apiData.body.businesses.map(biz => {
-          const thisYelp = new Yelp(biz,query.data.id);
+          const thisYelp = new Yelp(biz,query.data.search_query);
           thisYelp.saveToDB();
           return thisYelp;
         })
@@ -378,11 +379,11 @@ Yelp.prototype.saveToDB = function() {
 function getMovies (request, response) {
   const handler = new Feature (request);
   handler.cacheHit = (results) => {
-    console.log('cacheHit');
+    console.log('Movies cacheHit');
     response.send(results.rows);
   }
   handler.cacheMiss = () => {
-    console.log('cacheMiss');
+    console.log('Movies cacheMiss');
     Movie.fetch(request.query)
       .then( results => response.send(results))
       .catch( error => handleError(error));
@@ -414,7 +415,7 @@ Movie.fetch = (query) => {
       } else {
         let parsedData = JSON.parse(apiData.text);
         let allMovies = parsedData.results.map( rawMovie => {
-          let thisMovie = new Movie (rawMovie,query.data.id);
+          let thisMovie = new Movie (rawMovie,query.data.search_query);
           thisMovie.saveToDB();
           return thisMovie;
         });
